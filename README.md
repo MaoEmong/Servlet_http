@@ -1,31 +1,48 @@
 # Servlet Product Exam
 
-서블릿을 사용해 HTTP 요청/응답 흐름을 이해하기 위한 학습용 프로젝트입니다. 현재는 코드가 작성되지 않은 초기 상태이며, 단계적으로 기능을 구현해 나갈 예정입니다.
+서블릿으로 HTTP 요청/응답 흐름을 이해하기 위한 학습 프로젝트입니다. `*.do` 패턴을 처리하는 서블릿과 Mustache 템플릿 렌더링을 통해 기본적인 요청 흐름을 실습합니다.
 
-## 학습 목표
-- HTTP 요청/응답의 기본 구조 이해
-- 서블릿 생명주기와 동작 방식 이해
-- 요청 파라미터 처리 및 응답 생성 실습
-- 간단한 라우팅과 화면 렌더링 흐름 파악
+## 현재 구현
+- `DispatcherServlet`이 `*.do` 요청을 처리
+- `cmd` 파라미터 기반 분기(현재 `list`만 처리)
+- `ViewResolver`가 Mustache 템플릿을 로드해 `View`로 렌더링
+- MySQL 연결 헬퍼(`DBConnection`) 제공
+- 샘플 템플릿 3종(list/detail/save-form) 존재
 
-## 프로젝트 범위(예정)
-- `HttpServlet` 기반의 요청 처리
-- GET/POST 요청 분기 처리
-- 간단한 라우팅(예: `cmd` 또는 경로 기반)
-- 응답 본문 직접 작성 또는 템플릿 렌더링 연습
+## 실행 환경
+- Java 21
+- Spring Boot 4.0.1
+- Mustache
+- MySQL Connector/J
 
-## 현재 상태
-- 학습 프로젝트 초기 세팅만 존재
-- 비즈니스 로직 및 서블릿 코드는 미작성
+## 프로젝트 구조
+- `src/main/java/com/example/prodwebapp/DispatcherServlet.java`
+- `src/main/java/com/example/prodwebapp/DBConnection.java`
+- `src/main/java/com/example/prodwebapp/lib/ViewResolver.java`
+- `src/main/java/com/example/prodwebapp/lib/View.java`
+- `src/main/resources/templates/list.mustache`
+- `src/main/resources/templates/detail.mustache`
+- `src/main/resources/templates/save-form.mustache`
 
-## 진행 예정
-- 기본 서블릿 작성
-- 요청/응답 로깅 추가
-- 파라미터 처리 및 간단한 응답 페이지 출력
-- 필요 시 템플릿 도입 및 렌더링 흐름 학습
+## 로컬 실행
+Windows:
+```bash
+.\gradlew.bat bootRun
+```
 
-## 실행 안내
-코드 작성 이후 실행 방법을 추가할 예정입니다.
+macOS/Linux:
+```bash
+./gradlew bootRun
+```
+
+## 요청 예시
+`DispatcherServlet`은 `*.do` 패턴을 처리합니다. 현재 `cmd=list` 요청이 설정되어 있습니다.
+
+예시:
+```
+http://localhost:8080/product.do?cmd=list
+```
 
 ## 참고
-이 저장소는 "서블릿으로 HTTP를 이해하는 과정"에 초점을 맞춘 학습용 프로젝트입니다.
+- 템플릿 렌더링은 `ViewResolver.render(viewName)`을 통해 수행됩니다.
+- 요청 데이터 바인딩과 비즈니스 로직은 앞으로 추가될 예정입니다.
