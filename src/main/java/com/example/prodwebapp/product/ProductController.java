@@ -14,20 +14,20 @@ public class ProductController {
         List<Product> models = productService.상품목록();
         req.setAttribute("models", models);
         req.setAttribute("what", "엉?");
-        // return "forward:list";
-        return "list";
+        // return "forward:list"; // 포워딩
+        return "list"; // view 이름
     }
 
     public String insertForm(HttpServletRequest req, HttpServletResponse resp) {
         // return "forward:insert-form";
-        return "insert-form";
+        return "insert-form"; // view 이름
     }
 
     public String detail(HttpServletRequest req, HttpServletResponse resp) {
         var model = productService.상품상세(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("model", model);
         // return "forward:detail";
-        return "detail";
+        return "detail"; // view 이름
     }
 
     public String insert(HttpServletRequest req, HttpServletResponse resp) {
@@ -42,6 +42,14 @@ public class ProductController {
 
         productService.상품등록(name, price2, qty2);
 
-        return "/product.do?cmd=list";
+        return "/product.do?cmd=list"; // 주소 url
+    }
+
+    public String delete(HttpServletRequest req, HttpServletResponse resp) {
+        String id = req.getParameter("id");
+        int id2 = Integer.parseInt(id);
+
+        productService.상품삭제(id2);
+        return "/product.do?cmd=list"; // 주소 url
     }
 }

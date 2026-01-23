@@ -36,6 +36,7 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     // localhost:8080/product.do?cmd=insert
+    // localhost:8080/product.do?cmd=delete&id=6
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 라우팅
@@ -47,6 +48,9 @@ public class DispatcherServlet extends HttpServlet {
             // resp.sendRedirect(url); // <= 이건 매우 쉬움 버전
             resp.setStatus(302);
             resp.setHeader("Location", url);
+        } else if ("delete".equals(cmd)) {
+            String url = pc.delete(req, resp);
+            resp.sendRedirect(url); // 리다이렉트
         }
     }
 
