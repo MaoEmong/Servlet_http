@@ -31,6 +31,16 @@ public class ProductController {
     }
 
     public String insert(HttpServletRequest req, HttpServletResponse resp) {
+        String name = req.getParameter("name");
+        String price = req.getParameter("price");
+        String qty = req.getParameter("qty");
+        // int price = Integer.parseInt(req.getParameter("price"));
+        // int qty = Integer.parseInt(req.getParameter("qty"));
+
+        int price2 = Integer.parseInt(price);
+        int qty2 = Integer.parseInt(qty);
+
+        productService.상품등록(name, price2, qty2);
 
         return "/product.do?cmd=list";
     }

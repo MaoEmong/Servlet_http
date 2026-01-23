@@ -25,7 +25,6 @@ public class DispatcherServlet extends HttpServlet {
         if ("list".equals(cmd)) {
             String viewName = pc.list(req, resp);
             ViewResolver.render(viewName).forward(req, resp);
-            // ViewResolver.render(viewName);
         } else if ("insert-form".equals(cmd)) {
             String viewName = pc.insertForm(req, resp);
             ViewResolver.render(viewName).forward(req, resp);
